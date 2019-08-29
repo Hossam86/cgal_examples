@@ -15,6 +15,9 @@ target_link_libraries(sm_circulators CGAL::CGAL)
 add_executable(sm_aabbtree sm_aabbtree.cpp)
 target_link_libraries(sm_aabbtree CGAL::CGAL)
 
+add_executable(sm_memory sm_memory.cpp)
+target_link_libraries(sm_memory CGAL::CGAL)
+
 #add_executable(sm_derivation sm_derivation.cpp)
 #target_link_libraries(sm_derivation CGAL::CGAL)
 
