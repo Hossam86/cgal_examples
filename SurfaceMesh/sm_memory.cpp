@@ -31,6 +31,34 @@ int main()
     }
 
 
+    // The status of being used or removes is stored in ap property_map
+    Mesh::Property_map<Mesh::Vertex_index,bool> removed
+            =m.add_property_map<Mesh::vertex_index,bool>("v:removed").first;
+
+    std::cout <<"\nItrerate over vertices and deleted vertices\n"
+             <<"#vertices /# vertices+ #removes vertices = "
+            <<m.number_of_vertices()
+           << " / " << m.number_of_vertices()+m.number_of_removed_vertices() <<std::endl;
+    {
+        unsigned int i=0,end=m.number_of_vertices()+m.number_of_removed_vertices();
+        for (;i<end;++i) {
+            vertex_dexcrriptor vh(i);
+            assert(m.is_removed(vh)==removed[vh]);
+            std::cout <<m.point(vh) <<((m.is_removed(vh))? " R\n" : "\n");
+        }
+    }
+    m.collect_garbage();
+    std::cout<<" after garbage collecation\n"
+            << "# vertices / # vertices + # removed vertices = "
+            <<m.number_of_vertices()
+           <<" / " << m.number_of_vertices()+m.number_of_removed_vertices() <<std::endl;
+    {
+        unsigned i=0, end=m.number_of_vertices()+m.number_of_removed_vertices();
+        for (;i<end;++i) {
+            vertex_dexcrriptor vh(i);
+            std::cout <<m.point(vh) <<((m.is_removed(vh)) ? " R\n": "\n");
+        }
+    }
     return 0;
 }
 
