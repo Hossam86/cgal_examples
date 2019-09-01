@@ -18,11 +18,14 @@ target_link_libraries(sm_aabbtree CGAL::CGAL)
 add_executable(sm_memory sm_memory.cpp)
 target_link_libraries(sm_memory CGAL::CGAL)
 
-#add_executable(sm_derivation sm_derivation.cpp)
-#target_link_libraries(sm_derivation CGAL::CGAL)
+add_executable(sm_derivation sm_derivation.cpp)
+target_link_libraries(sm_derivation CGAL::CGAL)
 
 # add_executable(versionTest versionTest.cpp)
 # target_link_libraries(versionTest CGAL::CGAL)
 
 # add_executable(holeFill holeFill.cpp)
 # target_link_libraries(holeFill CGAL::CGAL)
+
+add_executable(sm_do_intersection sm_do_intersect.cpp)
+target_link_libraries(sm_do_intersection CGAL::CGAL)
