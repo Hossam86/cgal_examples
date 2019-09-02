@@ -29,3 +29,6 @@ target_link_libraries(sm_derivation CGAL::CGAL)
 
 add_executable(sm_do_intersection sm_do_intersect.cpp)
 target_link_libraries(sm_do_intersection CGAL::CGAL)
+
+add_executable(sm_join sm_join.cpp)
+target_link_libraries(sm_join CGAL::CGAL)
