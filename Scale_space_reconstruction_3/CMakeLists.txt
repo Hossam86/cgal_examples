@@ -1,0 +1,31 @@
+project(Scale_space_reconstruction_3)
+
+cmake_minimum_required(VERSION 3.3)
+
+find_package(CGAL QUIET)
+#include_directories(${CMAKE_SOURCE_DIR}/../../eigen)
+set(EIGEN3_FOUND true)
+#set(Eigen3_DIR /media/hossam/MyFiles/cProj/ComputationalGeometry/CGAL_Practice/eigen/)
+if(CGAL_FOUND)
+    #Activate concurrency?
+    option(ACTIVATE_CONCURRENCY "Enablae concurrency" ON)
+
+    if (ACTIVATE_CONCURRENCY)
+        find_package(TBB)
+        if(NOT TBB_FOUND)
+            message(STATUS "NOTICE: Intel TBB NOT found! The example is faster if TBB is linked.")
+        endif()
+    endif()
+
+    find_package(Eigen3)
+    if(EIGEN3_FOUND)
+        include(${EIGEN3_USE_FILE})
+        add_executable(scale_space_advancing_front scale_space_advancing_front.cpp)
+        target_link_libraries(scale_space_advancing_front CGAL::CGAL)
+        #    endif()
+    else()
+        message(STATUS "NOTICE: The example needs Eigen 3.1 (or greater) and will not be compiled.")
+    endif()
+else()
+    message(STATUS "This program requires the CGAL library, and will not be compiled.")
+endif()
