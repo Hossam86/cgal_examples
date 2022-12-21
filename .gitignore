@@ -1,5 +1,5 @@
 CMakeLists.txt.user
-3DPolyhedralSurface/*
+3D_polyhedral_surface/*
 halfedge_data_structure/*
 BGL/eigen/*
 BGL/build/*
@@ -12,3 +12,4 @@ build*
 .idea
 /polygon_mesh_processing/eigen/
 /polygon_mesh_processing/data/
+/3D_polyhedral_surface/data/
