@@ -1,7 +1,6 @@
 CMakeLists.txt.user
 3DPolyhedralSurface/*
 HalfEdgeDataStructure/*
-PolygonMeshProcessing/*
 BGL/eigen/*
 BGL/build/*
 BGL/*
@@ -11,3 +10,5 @@ libgmp-10.dll
 libmpfr-4.dll
 build*
 .idea
+/polygon_mesh_processing/eigen/
+/polygon_mesh_processing/data/
