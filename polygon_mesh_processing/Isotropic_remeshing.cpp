@@ -43,7 +43,7 @@ void mesh_from_file(const char *fileName, Mesh &mesh) {
 }
 
 int main(int argc, char **argv) {
-    const char *fileName = (argc > 1 ? argv[1] : "D:/DATA_PUBLIC/3D.stl");
+    const char *fileName = (argc > 1 ? argv[1] : "D:/DATA_PUBLIC/3D/cube.stl");
     std::ifstream input(fileName);
     Mesh mesh;
 //    if (!input || !(input >> mesh) || mesh.is_empty()) {
@@ -53,8 +53,8 @@ int main(int argc, char **argv) {
     mesh_from_file(fileName, mesh);
 
     CGAL::Timer timer;
-    double target_edge_length = 0.5;
-    unsigned int nb_iter = 3;
+    double target_edge_length = 10.0;
+    unsigned int nb_iter = 1;
     std::cout << "#Split border..." << std::endl;
     timer.start();
     std::vector<edge_descriptor> border;
@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
     timer.stop();
     std::cout << "#Remeshing done. in " << timer.time() << " sec" << std::endl;
     std::cout << "#writing mesh file" << std::endl;
-    const char *outfilename = "D:\\DATA_PRIVATE\\temp\\extruded_mesh_cgal.off";
+    const char *outfilename = "D:/DATA_PUBLIC/3D/cube_remeshed_cgal.off";
     std::ofstream outmesh(outfilename);
     outmesh << mesh;
     return 0;
