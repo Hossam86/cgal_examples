@@ -2,6 +2,8 @@
 #include <CGAL/Surface_mesh.h>
 #include <CGAL/Polygon_mesh_processing/remesh.h>
 #include <CGAL/Polygon_mesh_processing/border.h>
+#include <CGAL/Polygon_mesh_processing/detect_features.h>
+
 #include <CGAL/Timer.h>
 #include <boost/function_output_iterator.hpp>
 #include <fstream>
@@ -73,15 +75,38 @@ int main(int argc, char **argv) {
     timer.start();
     std::cout << "#Start remeshing of " << fileName
               << " (" << num_faces(mesh) << " faces)..." << std::endl;
-    PMP::isotropic_remeshing(faces(mesh), target_edge_length, mesh,
-                             PMP::parameters::number_of_iterations(nb_iter).protect_constraints(
-                                     true) //i.e. protect border, here
-    );
+
+    bool constraint_features = true;
+    bool constraint_border = false;
+
+
+    if (constraint_features) {
+        // Constrain edges with a dihedral angle over 60°
+        typedef boost::property_map<Mesh, CGAL::edge_is_feature_t>::type EIFMap;
+        EIFMap eif = get(CGAL::edge_is_feature, mesh);
+        PMP::detect_sharp_edges(mesh, 60, eif);
+        PMP::isotropic_remeshing(faces(mesh),
+                                 target_edge_length,
+                                 mesh,
+                                 PMP::parameters::number_of_iterations(nb_iter).edge_is_constrained_map(
+                                         eif)); //i.e. protect border, here
+    }
+
+    if (constraint_border) {
+        PMP::isotropic_remeshing(faces(mesh),
+                                 target_edge_length,
+                                 mesh,
+                                 PMP::parameters::number_of_iterations(nb_iter).protect_constraints(
+                                         true)); //i.e. protect border, here
+    }
+
     timer.stop();
     std::cout << "#Remeshing done. in " << timer.time() << " sec" << std::endl;
     std::cout << "#writing mesh file" << std::endl;
     const char *outfilename = "D:/DATA_PUBLIC/3D/cube_remeshed_cgal.off";
     std::ofstream outmesh(outfilename);
+
+    faces()
     outmesh << mesh;
     return 0;
 }
